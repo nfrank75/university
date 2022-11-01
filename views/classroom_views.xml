@@ -1,0 +1,86 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="classroom_list_view">
+      <field name="name">Classroom list</field>
+      <field name="model">university.classroom</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="code"/>
+          <field name="size"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- explicit form view definition- view form formular -->
+
+    <record model="ir.ui.view" id="classroom_form_view">
+      <field name="name">Classroom form</field>
+      <field name="model">university.classroom</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button name="next_level" type="object" class="oe_highlight" string="Next Level"/>
+            <field name="state" widget="statusbar" nolabel="1"/>
+          </header>
+          <sheet>
+            <group>
+              <group>
+                <field name="name" placeholder="Classroom Name"/>
+                <field name="code" placeholder="Code"/>
+                <field name="size" placeholder="Classroom size"/>
+              </group>
+              <group>
+                <field name="num_prof"/>
+                <field name="num_student"/>
+                <field name="num_subject"/>
+              </group>
+            </group>
+          <notebook>
+            <page string="List of Professors">
+                <field name='professor_ids'/>
+            </page>
+            <page string="List of Subjects">
+                <field name='subject_ids'/>
+            </page>
+            <page string="List of Students">
+                <field name='student_ids'/>
+            </page>
+          </notebook>
+          </sheet>
+        <div class='oe_chatter'>
+          <field name='message_follower_ids' widget='mail_followers'></field>
+          <field name='message_ids' widget='mail_thread'></field>
+        </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="classroom_action_window">
+      <field name="name">Classroom window</field>
+      <field name="res_model">university.classroom</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Top menu item -->
+
+    <menuitem name="University" id="university_menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Classroom" id="university_classroom_cat" parent="university_menu_root"/>
+<!--    <menuitem name="Menu 2" id="university.menu_2" parent="university_menu_root"/>-->
+
+    <!-- actions - menu qui fait l'appel a l'action -->
+
+    <menuitem name="List of Classrooms" id="university_classroom_list" parent="university_classroom_cat"
+              action="classroom_action_window"/>
+<!--    <menuitem name="Server to list" id="university" parent="university.menu_2"-->
+<!--              action="university.action_server"/>-->
+
+  </data>
+</odoo>

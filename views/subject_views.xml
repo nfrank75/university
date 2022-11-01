@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="subject_list_view">
+      <field name="name">Subject list</field>
+      <field name="model">university.subject</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="subject_name"/>
+          <field name="code"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- explicit form view definition- view form formular -->
+
+    <record model="ir.ui.view" id="subject_form_view">
+      <field name="name">Subject form</field>
+      <field name="model">university.subject</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <field name="subject_name" placeholder="Subject Name"/>
+            <field name="code" placeholder="Code"/>
+            <field name="department_id"/>
+          </group>
+          <notebook>
+            <page string='List of Professors'>
+              <field name="professor_ids"></field>
+            </page>
+          </notebook>
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="subject_action_window">
+      <field name="name">Subject window</field>
+      <field name="res_model">university.subject</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Top menu item -->
+
+    <menuitem name="University" id="university_menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Subject" id="university_subject_cat" parent="university_menu_root"/>
+<!--    <menuitem name="Menu 2" id="university.menu_2" parent="university_menu_root"/>-->
+
+    <!-- actions - menu qui fait l'appel a l'action -->
+
+    <menuitem name="List of Subjects" id="university_subject_list" parent="university_subject_cat"
+              action="subject_action_window"/>
+  </data>
+</odoo>

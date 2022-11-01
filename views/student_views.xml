@@ -1,0 +1,93 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="student_list_view">
+      <field name="name">Student list</field>
+      <field name="model">university.student</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="first_name"/>
+          <field name="last_name"/>
+          <field name="sex"/>
+          <field name="country_id"/>
+          <field name="phone"/>
+          <field name="email"/>
+          <field name="birth_date"/>
+          <field name="identity_cart"/>
+          <field name="address"/>
+          <field name="registration_date"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- explicit form view definition -->
+
+    <record model="ir.ui.view" id="student_form_view">
+      <field name="name">student form</field>
+      <field name="model">university.student</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button name="next_level" type="object" class="oe_highlight" string="Next Level"/>
+            <field name="state" widget="statusbar" nolabel="1"/>
+          </header>
+          <sheet>
+            <group>
+              <group>
+                <field name="first_name" placeholder="First Name"/>
+                <field name="last_name" placeholder="Last Name"/>
+                <field name="sex" placeholder="Sex"/>
+                <field name="country_id" placeholder="Country"/>
+                <field name="phone" placeholder="Phone"/>
+                <field name="email" placeholder="Email"/>
+              </group>
+              <group>
+                <field name="birth_date"/>
+                <field name="identity_cart"/>
+                <field name="address"/>
+                <field name="registration_date"/>
+                <field name="sex"/>
+              </group>
+              <group>
+                <field name="department_id"/>
+                <field name="faculty_id"/>
+                <field name="classroom_id"/>
+              </group>
+            </group>
+          <notebook>
+            <page string="List of Subjects">
+                <field name='subject_ids'/>
+            </page>
+          </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="student_action_window">
+      <field name="name">Student window</field>
+      <field name="res_model">university.student</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Top menu item -->
+
+    <menuitem name="University" id="university_menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Students" id="university_student_cat" parent="university_menu_root"/>
+<!--    <menuitem name="Menu 2" id="university.menu_2" parent="university_menu_root"/>-->
+
+    <!-- actions - menu qui fait l'appel a l'action -->
+
+    <menuitem name="List of students" id="university_student_list" parent="university_student_cat"
+              action="student_action_window"/>
+<!--    <menuitem name="Server to list" id="university" parent="university.menu_2"-->
+<!--              action="university.action_server"/>-->
+
+  </data>
+</odoo>
